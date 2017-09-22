@@ -5,9 +5,10 @@ public class Pizza {
 	private String code;
 	private String nom;
 	private double prix;
+	static int currentId = 0;
 	
-	public Pizza(int id, String code, String nom, double prix) {
-		this.id = id;
+	public Pizza(String code, String nom, double prix) {
+		this.id = currentId++;
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;
