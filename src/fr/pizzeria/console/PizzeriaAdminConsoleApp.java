@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class PizzeriaAdminConsoleApp {
 	public static Scanner clavier = new Scanner(System.in);
 	boolean out = false;
+	int userInput = 0;
 
 	public static void main(String[] args) {
 		PizzeriaAdminConsoleApp app = new PizzeriaAdminConsoleApp();
@@ -19,8 +20,7 @@ public class PizzeriaAdminConsoleApp {
 		do {
 			try {
 				this.interfacePizza();
-				int userInput = 
-				int userInput = clavier.nextInt();
+				userInput = clavier.nextInt();
 				switch (userInput) {
 					case 1:
 						ListerPizzasOptionMenu listerMenu = new ListerPizzasOptionMenu(clavier);
