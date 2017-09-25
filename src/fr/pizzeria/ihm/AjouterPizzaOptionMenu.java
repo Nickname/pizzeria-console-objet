@@ -2,18 +2,20 @@ package fr.pizzeria.ihm;
 
 import java.util.Scanner;
 
-import fr.pizzeria.dao.PizzaDaoImpl;
+import fr.pizzeria.dao.*;
 import fr.pizzeria.exception.BadInputException;
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class AjouterPizzaOptionMenu extends OptionMenu {
-	Scanner clavier;
+	private IPizzaDao four;
 	
-	public AjouterPizzaOptionMenu(Scanner clavier) {
-		this.clavier = clavier;
+	public AjouterPizzaOptionMenu(IPizzaDao four) {
+		this.four = four;
 	}
 
-	public void execute() throws BadInputException {
+	public void execute(Scanner clavier) throws BadInputException, SavePizzaException {
 		System.out.println("Ajout d’une nouvelle pizza\n");
 		
 		// Saisie du code
@@ -31,9 +33,24 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		System.out.println("Veuillez saisir le prix");
 		double prix = clavier.nextDouble();
 		
-		PizzaDaoImpl four = PizzaDaoImpl.getInstance();
-		Pizza pizza = new Pizza(code, nom, prix);
-		four.saveNewPizza(pizza);
+		System.out.println("Veuillez saisir la catégorie de la pizza\n"
+				+ "1. Viande"
+				+ "2. Sans viande"
+				+ "3. Poisson");
+		String categorieInput = clavier.nextLine();
+		CategoriePizza categorie = null;
+		
+		switch(categorieInput) {
+			case "1": categorie = CategoriePizza.VIANDE;
+			case "2": categorie = CategoriePizza.SANS_VIANDE;
+			case "3": categorie = CategoriePizza.POISSON;
+		}
+		
+		Pizza pizza = new Pizza(code, nom, prix, categorie);
+		boolean ok = four.saveNewPizza(pizza);
+		if (!ok) {
+			throw new SavePizzaException("Erreur lors de la sauvegarde");
+		}
 	}
 	
 }
