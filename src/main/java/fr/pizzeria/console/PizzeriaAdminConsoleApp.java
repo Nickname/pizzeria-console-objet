@@ -6,6 +6,7 @@ import fr.pizzeria.ihm.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import com.github.lalyos.jfiglet.FigletFont;
 
 public class PizzeriaAdminConsoleApp {
 	public static Scanner clavier = new Scanner(System.in);
@@ -19,7 +20,7 @@ public class PizzeriaAdminConsoleApp {
 
 	public void execute() {
 		IPizzaDao four = PizzaDaoImpl.getInstance();
-		
+
 		do {
 			try {
 				userInput = "0";
@@ -60,8 +61,10 @@ public class PizzeriaAdminConsoleApp {
 	}
 
 	public void interfacePizza() {
-		System.out.println("***** Pizzeria Administration *****\r\n"
-				+ "1. Lister les pizzas\r\n"
+        String pizzeriaAscii = FigletFont.convertOneLine("Pizzeria");
+
+		System.out.println(pizzeriaAscii
+                + "1. Lister les pizzas\r\n"
 				+ "2. Ajouter une nouvelle pizza\r\n"
 				+ "3. Mettre à jour une pizza\r\n"
 				+ "4. Supprimer une pizza\r\n"
