@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class PizzeriaAdminConsoleApp {
 	public static Scanner clavier = new Scanner(System.in);
-	boolean out = false;
-	int userInput = 0;
+    boolean out = false;
+    int userInput = 0;
 
 	public static void main(String[] args) {
 		PizzeriaAdminConsoleApp app = new PizzeriaAdminConsoleApp();
@@ -51,14 +51,14 @@ public class PizzeriaAdminConsoleApp {
 				System.out.println("Non respect du formatage...");
 			}
 		} while (!out);
-		
+
 		clavier.close();
 	}
 
 	public void interfacePizza() {
-		System.out.println("***** Pizzeria Administration *****\r\n" 
+		System.out.println("***** Pizzeria Administration *****\r\n"
 				+ "1. Lister les pizzas\r\n"
-				+ "2. Ajouter une nouvelle pizza\r\n" 
+				+ "2. Ajouter une nouvelle pizza\r\n"
 				+ "3. Mettre à jour une pizza\r\n"
 				+ "4. Supprimer une pizza\r\n"
 				+ "99. Sortir");
