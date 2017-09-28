@@ -2,32 +2,23 @@ package fr.pizzeria.ihm;
 
 import java.util.Scanner;
 
-import fr.pizzeria.dao.PizzaDaoImpl;
+import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.model.Pizza;
 
 public class ListerPizzasOptionMenu extends OptionMenu {
-	Scanner clavier;
+	private IPizzaDao four;
 	
-	public ListerPizzasOptionMenu(Scanner clavier) {
-		this.clavier = clavier;
+	public ListerPizzasOptionMenu(IPizzaDao four) {
+		this.four = four;
 	}
 	
-	public void execute() {
-		PizzaDaoImpl four = PizzaDaoImpl.getInstance();
-		
+	public void execute(Scanner clavier) {
 		System.out.println("Liste des pizzas\n");
 		String affich = new String();
 		
-		Pizza[] pizzas = four.findAllPizzas();
-		
-		for (int i = 0; i < pizzas.length; i++) {
-			if (pizzas[i] != null) {
-				affich += pizzas[i].toString() + "\n";
-			} else {
-				break;
-			}
+		for (Pizza pizza : four.findAllPizzas()) {
+			affich += pizza.toString() + "\n";
 		}
 		System.out.println(affich);
-		
 	}
 }

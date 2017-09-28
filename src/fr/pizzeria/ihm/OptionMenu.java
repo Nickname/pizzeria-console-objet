@@ -1,8 +1,10 @@
 package fr.pizzeria.ihm;
 
-import fr.pizzeria.exception.BadInputException;
+import java.util.Scanner;
+
+import fr.pizzeria.exception.*;
 
 abstract class OptionMenu {
 	
-	protected abstract void execute() throws BadInputException;
+	protected abstract void execute(Scanner clavier) throws BadInputException, SavePizzaException, DeletePizzaException, UpdatePizzaException;
 }
