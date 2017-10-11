@@ -14,11 +14,13 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 	
 	public void execute(Scanner clavier) {
 		System.out.println("Liste des pizzas\n");
-		String affich = new String();
+		StringBuilder affich = new StringBuilder();
 		
 		for (Pizza pizza : four.findAllPizzas()) {
-			affich += pizza.toString() + "\n";
+			affich.append(pizza.toString());
+			affich.append("\n");
 		}
-		System.out.println(affich);
+		
+		System.out.println(affich.toString());
 	}
 }

@@ -1,11 +1,15 @@
 package fr.pizzeria.dao;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.ArrayList;
+import java.util.function.*;
+import java.util.stream.Collectors;
 
 import fr.pizzeria.model.*;
 
 public class PizzaDaoImpl implements IPizzaDao {
-	ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
+	List<Pizza> pizzas = new ArrayList<>();
 	static PizzaDaoImpl instance = null;
 	
 	private PizzaDaoImpl() {
@@ -38,8 +42,16 @@ public class PizzaDaoImpl implements IPizzaDao {
 		pizzas.add(pizza7);
 	}
 
-	public ArrayList<Pizza> findAllPizzas() {
+	public List<Pizza> findAllPizzas() {
 		return this.pizzas;
+	}
+	
+	public Optional<Pizza> findPizza(String codePizza) {
+		Optional<Pizza> tmpPizza = this.pizzas.stream()
+					.filter(p -> p.getCode().equals(codePizza))
+					.findFirst();
+		
+		return tmpPizza;
 	}
 	
 	public boolean saveNewPizza(Pizza pizza) {
@@ -48,25 +60,18 @@ public class PizzaDaoImpl implements IPizzaDao {
 	}
 	
 	public boolean updatePizza(String codePizza, Pizza newPizza) {
-		for (Pizza pizza : this.pizzas) {
-			if (pizza.getCode().equals(codePizza)) {
-				pizzas.remove(pizza);
-				pizzas.add(newPizza);
-				
-				return true;
-			}
+		Optional<Pizza> tmpPizza = findPizza(codePizza);
+		
+		if (tmpPizza.isPresent()) {
+			this.pizzas.remove(tmpPizza.get());
+			this.pizzas.add(newPizza);
+			
+			return true;
 		}
 		return false;
 	}
 	
 	public boolean deletePizza(String codePizza) {
-		for (Pizza pizza : this.pizzas) {
-			if (pizza.getCode().equals(codePizza)) {
-				this.pizzas.remove(pizza);
-				
-				return true;
-			}
-		}
-		return false;
+		Optional<Pizza> tmpPizza = findPizza();
 	}
 }
