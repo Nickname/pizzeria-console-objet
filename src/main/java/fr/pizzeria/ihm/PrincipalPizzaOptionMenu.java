@@ -15,7 +15,7 @@ import fr.pizzeria.exception.*;
 
 public class PrincipalPizzaOptionMenu extends OptionMenu {
 	private static final IPizzaDao four = PizzaDaoImpl.getInstance();
-	private static final Logger LOG = LoggerFactory.getLogger(PrincipalPizzaOptionMenu.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
 	private Map<String, String> mapMenu = new TreeMap<>();
     private String pizzeriaAscii = FigletFont.convertOneLine("Pizzeria");

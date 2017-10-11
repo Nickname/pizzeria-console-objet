@@ -16,19 +16,6 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 	public ListerPizzasOptionMenu(IPizzaDao four) {
 		this.four = four;
 	}
-	
-<<<<<<< HEAD
-	public void execute(Scanner clavier) {
-		System.out.println("Liste des pizzas\n");
-		StringBuilder affich = new StringBuilder();
-		
-		for (Pizza pizza : four.findAllPizzas()) {
-			affich.append(pizza.toString());
-			affich.append("\n");
-		}
-		
-		System.out.println(affich.toString());
-=======
 	public String execute(Scanner clavier) {
 		LOG.info("Liste des pizzas");
 		
@@ -39,6 +26,5 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 		}
 		
 		return affich.toString();
->>>>>>> fc5a3220aad792719231319e300c1d6cafc23bb9
 	}
 }
