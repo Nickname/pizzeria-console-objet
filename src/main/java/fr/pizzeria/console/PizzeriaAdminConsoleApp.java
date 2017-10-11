@@ -1,23 +1,35 @@
 package fr.pizzeria.console;
 
-import fr.pizzeria.dao.*;
-import fr.pizzeria.exception.*;
 import fr.pizzeria.ihm.*;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PizzeriaAdminConsoleApp {
+	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	public static final Scanner clavier = new Scanner(System.in);
-    boolean out = false;
-	String userInput;
+	
+	boolean out = false;
+	String userInput = "0";
 
 	public static void main(String[] args) {
 		PizzeriaAdminConsoleApp app = new PizzeriaAdminConsoleApp();
 		app.execute();
 	}
 
+	
 	public void execute() {
+		PrincipalPizzaOptionMenu menuPrincipal = PrincipalPizzaOptionMenu.getInstance();
+		menuPrincipal.initMenu(clavier);
+		
+		do {
+			LOG.info(menuPrincipal.affichMenu());
+			//LOG.info(menuPrincipal.execute(clavier));
+		} while (!out);
+	}
+	
+/*	public void execute() {
 		IPizzaDao four = PizzaDaoImpl.getInstance();
 
 		do {
@@ -57,6 +69,5 @@ public class PizzeriaAdminConsoleApp {
 		} while (!out);
 
 		clavier.close();
-	}
-
+	}*/
 }

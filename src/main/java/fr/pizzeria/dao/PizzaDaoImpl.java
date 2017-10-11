@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import fr.pizzeria.model.*;
 
 public class PizzaDaoImpl implements IPizzaDao {
-	List<Pizza> pizzas = new ArrayList<>();
-	static PizzaDaoImpl instance = null;
+	ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
+	private static PizzaDaoImpl instance = null;
 	
 	private PizzaDaoImpl() {
 		this.initPizzas();
@@ -72,6 +72,6 @@ public class PizzaDaoImpl implements IPizzaDao {
 	}
 	
 	public boolean deletePizza(String codePizza) {
-		Optional<Pizza> tmpPizza = findPizza();
+		//TODO Optional<Pizza> tmpPizza = findPizza();
 	}
 }

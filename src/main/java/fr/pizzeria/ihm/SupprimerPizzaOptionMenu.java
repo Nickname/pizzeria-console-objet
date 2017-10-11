@@ -13,7 +13,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 		this.four = four;
 	}
 	
-	public void execute(Scanner clavier) throws BadInputException, DeletePizzaException {
+	public String execute(Scanner clavier) throws BadInputException, DeletePizzaException {
 		ListerPizzasOptionMenu listerPizza = new ListerPizzasOptionMenu(four);
 		
 		System.out.println("Suppression d’une pizza\n");
@@ -28,6 +28,8 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 		boolean ok = four.deletePizza(code);
 		if (!ok) {
 			throw new DeletePizzaException("Erreur lors de la supression");
+		} else {
+			return "Pizza supprimé !";
 		}
 	}
 	
