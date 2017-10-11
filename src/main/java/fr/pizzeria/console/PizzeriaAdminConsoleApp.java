@@ -24,7 +24,7 @@ public class PizzeriaAdminConsoleApp {
 		menuPrincipal.initMenu(clavier);
 		
 		do {
-			menuPrincipal.affichMenu();
+			LOG.info(menuPrincipal.affichMenu());
 			//LOG.info(menuPrincipal.execute(clavier));
 		} while (!out);
 	}

@@ -33,19 +33,23 @@ public class PrincipalPizzaOptionMenu extends OptionMenu {
 	
 	public void initMenu(Scanner clavier) {
         try {
-			mapMenu.put("1  ->  Lister les pizzas\r\n", new ListerPizzasOptionMenu(four).execute(clavier));
-			mapMenu.put("2  ->  Ajouter une nouvelle pizza\r\n", new AjouterPizzaOptionMenu(four).execute(clavier));
-			mapMenu.put("3  ->  Mettre à jour une pizza\r\n", new ModifierPizzaOptionMenu(four).execute(clavier));
-			mapMenu.put("4  ->  Supprimer une pizza\r\n", new SupprimerPizzaOptionMenu(four).execute(clavier));
+			mapMenu.put("1  ->  Lister les pizzas", new ListerPizzasOptionMenu(four).execute(clavier));
+			mapMenu.put("2  ->  Ajouter une nouvelle pizza", new AjouterPizzaOptionMenu(four).execute(clavier));
+			mapMenu.put("3  ->  Mettre à jour une pizza", new ModifierPizzaOptionMenu(four).execute(clavier));
+			mapMenu.put("4  ->  Supprimer une pizza", new SupprimerPizzaOptionMenu(four).execute(clavier));
 			mapMenu.put("99 -> Sortir", "Au revoir !");
 		} catch (SavePizzaException | UpdatePizzaException | DeletePizzaException | BadInputException e) {
 			LOG.info(e.getMessage());
 		}
 	}
 	
-	public void affichMenu() {
-		LOG.info(pizzeriaAscii);
-		LOG.info(mapMenu.keySet().stream().toString());
+	public String affichMenu() {
+		StringBuilder strMenu = new StringBuilder();
+		
+		strMenu.append(pizzeriaAscii);
+		strMenu.append(mapMenu.keySet().stream().toString());
+		
+		return strMenu.toString();
 	}
 
 	public String execute(Scanner clavier) {
