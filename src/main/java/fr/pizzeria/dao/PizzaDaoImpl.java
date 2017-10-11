@@ -6,7 +6,7 @@ import fr.pizzeria.model.*;
 
 public class PizzaDaoImpl implements IPizzaDao {
 	ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
-	static PizzaDaoImpl instance = null;
+	private static PizzaDaoImpl instance = null;
 	
 	private PizzaDaoImpl() {
 		this.initPizzas();

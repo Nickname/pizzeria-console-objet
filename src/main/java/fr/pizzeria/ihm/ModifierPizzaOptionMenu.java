@@ -15,7 +15,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 		this.four = four;
 	}
 
-	public void execute(Scanner clavier) throws BadInputException, UpdatePizzaException {
+	public String execute(Scanner clavier) throws BadInputException, UpdatePizzaException {
 		ListerPizzasOptionMenu listerPizza = new ListerPizzasOptionMenu(four);
 		
 		System.out.println("Mise à jour d’une pizza\n");
@@ -52,6 +52,8 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 		
 		if (!ok) {
 			throw new UpdatePizzaException("Erreur lors de la modification");
+		} else {
+			return "Pizza modifié !";
 		}
 	}
 }
