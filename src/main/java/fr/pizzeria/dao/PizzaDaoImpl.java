@@ -3,9 +3,6 @@ package fr.pizzeria.dao;
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
-import java.util.function.*;
-import java.util.stream.Collectors;
-
 import fr.pizzeria.model.*;
 
 public class PizzaDaoImpl implements IPizzaDao {
@@ -47,15 +44,14 @@ public class PizzaDaoImpl implements IPizzaDao {
 	}
 	
 	public Optional<Pizza> findPizza(String codePizza) {
-		Optional<Pizza> tmpPizza = this.pizzas.stream()
+		return this.pizzas.stream()
 					.filter(p -> p.getCode().equals(codePizza))
 					.findFirst();
-		
-		return tmpPizza;
 	}
 	
 	public boolean saveNewPizza(Pizza pizza) {
 		this.pizzas.add(pizza);
+		
 		return true;
 	}
 	
@@ -72,6 +68,13 @@ public class PizzaDaoImpl implements IPizzaDao {
 	}
 	
 	public boolean deletePizza(String codePizza) {
-		//TODO Optional<Pizza> tmpPizza = findPizza();
+		Optional<Pizza> tmpPizza = findPizza(codePizza);
+		if (tmpPizza.isPresent()) {
+			pizzas.remove(tmpPizza.get());
+			
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

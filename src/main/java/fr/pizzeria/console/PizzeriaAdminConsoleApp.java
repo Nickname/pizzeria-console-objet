@@ -25,7 +25,11 @@ public class PizzeriaAdminConsoleApp {
 		
 		do {
 			LOG.info(menuPrincipal.affichMenu());
-			//LOG.info(menuPrincipal.execute(clavier));
+			try {
+				LOG.info(menuPrincipal.execute(clavier));
+			} catch (Exception e) {
+				LOG.info(e.getMessage());
+			}
 		} while (!out);
 	}
 	

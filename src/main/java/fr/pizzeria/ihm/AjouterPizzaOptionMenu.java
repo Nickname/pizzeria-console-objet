@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.pizzeria.console.PizzeriaAdminConsoleApp;
 import fr.pizzeria.dao.*;
 import fr.pizzeria.exception.BadInputException;
 import fr.pizzeria.exception.SavePizzaException;
@@ -13,7 +14,7 @@ import fr.pizzeria.model.Pizza;
 
 public class AjouterPizzaOptionMenu extends OptionMenu {
 	private IPizzaDao four;
-	private static final Logger LOG = LoggerFactory.getLogger(AjouterPizzaOptionMenu.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
 	public AjouterPizzaOptionMenu(IPizzaDao four) {
 		this.four = four;
