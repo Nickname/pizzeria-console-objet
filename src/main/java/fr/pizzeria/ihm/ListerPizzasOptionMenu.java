@@ -10,12 +10,20 @@ import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.model.Pizza;
 
 public class ListerPizzasOptionMenu extends OptionMenu {
+	/** four : IPizzaDao */
 	private IPizzaDao four;
+	/** LOG : Logger */
 	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
+	/**
+	 * @param four
+	 */
 	public ListerPizzasOptionMenu(IPizzaDao four) {
 		this.four = four;
 	}
+	/* Méthode qui renvoie la liste des pizzas sous forme de String
+	 * @see fr.pizzeria.ihm.OptionMenu#execute(java.util.Scanner)
+	 */
 	public String execute(Scanner clavier) {
 		LOG.info("Liste des pizzas");
 		

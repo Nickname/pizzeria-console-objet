@@ -7,71 +7,42 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PizzeriaAdminConsoleApp {
+	/** LOG : Logger */
 	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
+	/** clavier : Scanner */
 	public static final Scanner clavier = new Scanner(System.in);
-	
-	boolean out = false;
-	String userInput = "0";
+	/** out : boolean */
+	private static boolean out = false;
 
+	/** Méthode main
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		PizzeriaAdminConsoleApp app = new PizzeriaAdminConsoleApp();
 		app.execute();
 	}
-
 	
+	/** Méthode principale : lance l'exécution de la pizzeria
+	 * 
+	 */
 	public void execute() {
 		PrincipalPizzaOptionMenu menuPrincipal = PrincipalPizzaOptionMenu.getInstance();
-		menuPrincipal.initMenu(clavier);
+		menuPrincipal.initMenu();
 		
-		do {
-			LOG.info(menuPrincipal.affichMenu());
+		while (!out) {
 			try {
+				LOG.info(menuPrincipal.affichMenu());
 				LOG.info(menuPrincipal.execute(clavier));
 			} catch (Exception e) {
 				LOG.info(e.getMessage());
 			}
-		} while (!out);
+		}
+		
+		clavier.close();
 	}
 	
-/*	public void execute() {
-		IPizzaDao four = PizzaDaoImpl.getInstance();
-
-		do {
-			try {
-				userInput = "0";
-				PrincipalOptionMenu.execute();
-				userInput = clavier.nextLine();
-				switch (userInput) {
-					case "1":
-						ListerPizzasOptionMenu listerMenu = new ListerPizzasOptionMenu(four);
-						listerMenu.execute(clavier);
-						break;
-					case "2":
-						AjouterPizzaOptionMenu ajoutMenu = new AjouterPizzaOptionMenu(four);
-						ajoutMenu.execute(clavier);
-						break;
-					case "3":
-						ModifierPizzaOptionMenu modifPizza = new ModifierPizzaOptionMenu(four);
-						modifPizza.execute(clavier);
-						break;
-					case "4":
-						SupprimerPizzaOptionMenu supprPizza = new SupprimerPizzaOptionMenu(four);
-						supprPizza.execute(clavier);
-						break;
-					case "99":
-						System.out.println("Au revoir!");
-						out = true;
-						break;
-				}
-			} catch (BadInputException e) {
-				System.out.println(e.getMessage());
-			} catch (InputMismatchException e) {
-				System.out.println("Non respect du formatage...");
-			} catch (StockageException e) {
-				System.out.println(e.getMessage());
-			}
-		} while (!out);
-
-		clavier.close();
-	}*/
+	public static void exit() {
+		out = true;
+	}
+	
 }

@@ -14,16 +14,24 @@ import fr.pizzeria.console.PizzeriaAdminConsoleApp;
 import fr.pizzeria.dao.*;
 
 public class PrincipalPizzaOptionMenu extends OptionMenu {
+	/** four : IPizzaDao */
 	private static final IPizzaDao four = PizzaDaoImpl.getInstance();
+	/** LOG : Logger */
 	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
+	/** mapMenu : Map<String,OptionMenu> */
 	private Map<String, OptionMenu> mapMenu = new TreeMap<>();
+    /** pizzeriaAscii : String */
     private String pizzeriaAscii = FigletFont.convertOneLine("Pizzeria");
     
+    /** instanceMenu : PrincipalPizzaOptionMenu */
     private static PrincipalPizzaOptionMenu instanceMenu = null;
-    
+
     private PrincipalPizzaOptionMenu() {    }
     
+    /** Méthode récupération instance : singleton
+     * @return
+     */
     public static PrincipalPizzaOptionMenu getInstance() {
     	if (instanceMenu == null) {
     		instanceMenu = new PrincipalPizzaOptionMenu();
@@ -31,18 +39,24 @@ public class PrincipalPizzaOptionMenu extends OptionMenu {
     	return instanceMenu;
     }
 	
-	public void initMenu(Scanner clavier) {
+	/** Méthode permettant d'initialiser la map contenant le menu
+	 * @param clavier
+	 */
+	public void initMenu() {
         try {
 			mapMenu.put("1  ->  Lister les pizzas", new ListerPizzasOptionMenu(four));
 			mapMenu.put("2  ->  Ajouter une nouvelle pizza", new AjouterPizzaOptionMenu(four));
 			mapMenu.put("3  ->  Mettre à jour une pizza", new ModifierPizzaOptionMenu(four));
 			mapMenu.put("4  ->  Supprimer une pizza", new SupprimerPizzaOptionMenu(four));
-			//mapMenu.put("99 -> Sortir", "Au revoir !");
+			mapMenu.put("99 -> Sortir", new SortirPizzaOptionMenu());
 		} catch (Exception e) {
 			LOG.info(e.getMessage());
 		}
 	}
 	
+	/** Méthode pour afficher le menu
+	 * @return
+	 */
 	public String affichMenu() {
 		StringBuilder strMenu = new StringBuilder();
 		
@@ -53,6 +67,9 @@ public class PrincipalPizzaOptionMenu extends OptionMenu {
 		return strMenu.toString();
 	}
 
+	/* Méthode exécutant le bon menu suivant l'entrée au clavier de l'utilisateur
+	 * @see fr.pizzeria.ihm.OptionMenu#execute(java.util.Scanner)
+	 */
 	public String execute(Scanner clavier) throws Exception {
 		String userInput = clavier.nextLine();
 		

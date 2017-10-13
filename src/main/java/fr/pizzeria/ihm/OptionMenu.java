@@ -2,9 +2,12 @@ package fr.pizzeria.ihm;
 
 import java.util.Scanner;
 
-import fr.pizzeria.exception.*;
-
 abstract class OptionMenu {
 	
+	/** Méthode abstraite des classes de Menus
+	 * @param clavier
+	 * @return
+	 * @throws Exception
+	 */
 	protected abstract String execute(Scanner clavier) throws Exception;
 }

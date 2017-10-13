@@ -6,13 +6,21 @@ import java.util.ArrayList;
 import fr.pizzeria.model.*;
 
 public class PizzaDaoImpl implements IPizzaDao {
-	ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
+	/** pizzas : ArrayList<Pizza> */
+	ArrayList<Pizza> pizzas = new ArrayList<>();
+	/** instance : PizzaDaoImpl */
 	private static PizzaDaoImpl instance = null;
 	
+	/**
+	 * Constructeur privé : initialise la liste des pizzas en mémoire
+	 */
 	private PizzaDaoImpl() {
 		this.initPizzas();
 	}
 	
+	/** Méthode singleton
+	 * @return
+	 */
 	public static PizzaDaoImpl getInstance() {
 		if (instance == null) {
 			instance = new PizzaDaoImpl();
@@ -20,6 +28,9 @@ public class PizzaDaoImpl implements IPizzaDao {
 		return instance;
 	}
 	
+	/**
+	 * Méthode d'initialisation des pizzas dans une ArrayList
+	 */
 	public void initPizzas() {
 		Pizza pizza0 = new Pizza("PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE);
 		pizzas.add(pizza0);
@@ -39,22 +50,35 @@ public class PizzaDaoImpl implements IPizzaDao {
 		pizzas.add(pizza7);
 	}
 
+	/* Retourne la liste des pizzas
+	 * @see fr.pizzeria.dao.IPizzaDao#findAllPizzas()
+	 */
 	public List<Pizza> findAllPizzas() {
 		return this.pizzas;
 	}
 	
+	/** Retourne une pizza correspondant au code
+	 * @param codePizza
+	 * @return
+	 */
 	public Optional<Pizza> findPizza(String codePizza) {
 		return this.pizzas.stream()
 					.filter(p -> p.getCode().equals(codePizza))
 					.findFirst();
 	}
 	
+	/* Sauvegarde d'une nouvelle pizza
+	 * @see fr.pizzeria.dao.IPizzaDao#saveNewPizza(fr.pizzeria.model.Pizza)
+	 */
 	public boolean saveNewPizza(Pizza pizza) {
 		this.pizzas.add(pizza);
 		
 		return true;
 	}
 	
+	/* Met à jour une pizza avec des nouvelles informations
+	 * @see fr.pizzeria.dao.IPizzaDao#updatePizza(java.lang.String, fr.pizzeria.model.Pizza)
+	 */
 	public boolean updatePizza(String codePizza, Pizza newPizza) {
 		Optional<Pizza> tmpPizza = findPizza(codePizza);
 		
@@ -67,6 +91,9 @@ public class PizzaDaoImpl implements IPizzaDao {
 		return false;
 	}
 	
+	/* Supprime une pizza correspondant au code
+	 * @see fr.pizzeria.dao.IPizzaDao#deletePizza(java.lang.String)
+	 */
 	public boolean deletePizza(String codePizza) {
 		Optional<Pizza> tmpPizza = findPizza(codePizza);
 		if (tmpPizza.isPresent()) {

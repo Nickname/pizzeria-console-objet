@@ -13,13 +13,21 @@ import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaOptionMenu extends OptionMenu {
+	/** four : IPizzaDao */
 	private IPizzaDao four;
+	/** LOG : Logger */
 	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
+	/**
+	 * @param four
+	 */
 	public ModifierPizzaOptionMenu(IPizzaDao four) {
 		this.four = four;
 	}
 
+	/* Exécute le menu pour modifier une pizza
+	 * @see fr.pizzeria.ihm.OptionMenu#execute(java.util.Scanner)
+	 */
 	public String execute(Scanner clavier) throws BadInputException, UpdatePizzaException {
 		ListerPizzasOptionMenu listerPizza = new ListerPizzasOptionMenu(four);
 		
