@@ -74,8 +74,8 @@ public class PrincipalPizzaOptionMenu extends OptionMenu {
 		String userInput = clavier.nextLine();
 		
 		String keyMenu = mapMenu.keySet().stream()
-						.filter(k -> k.substring(0, 3).trim().equals(userInput))
-						.collect(Collectors.joining());
+										.filter(k -> k.substring(0, 3).trim().equals(userInput))
+										.collect(Collectors.joining());
 		
 		return mapMenu.get(keyMenu).execute(clavier);
 	}

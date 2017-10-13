@@ -63,7 +63,6 @@ public class Pizza {
 	}
 
 	public String toString() {
-		//return (this.code + "-> " + this.nom + " (" + this.prix + " \u20ac) " + this.categorie);
 		String pizzaStr = new String("");
 		Class<?> pizza = this.getClass();
 		
