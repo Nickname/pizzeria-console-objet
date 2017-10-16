@@ -7,15 +7,16 @@ import java.util.Optional;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import fr.pizzeria.dao.impl.PizzaDaoTabl;
 import fr.pizzeria.model.Pizza;
 
-public class PizzaDaoImplTest {
+public class PizzaDaoTablTest {
 	
-	private static final PizzaDaoImpl four = null;
+	private static PizzaDaoTabl four = null;
 	
 	@BeforeClass
 	public static void recupInstance() {
-		four = PizzaDaoImpl.getInstance();
+		four = PizzaDaoTabl.getInstance();
 		four.initPizzas();
 	}
 	

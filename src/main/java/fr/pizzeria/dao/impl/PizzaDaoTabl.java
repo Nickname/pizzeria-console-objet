@@ -1,29 +1,31 @@
-package fr.pizzeria.dao;
+package fr.pizzeria.dao.impl;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
+
+import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.model.*;
 
-public class PizzaDaoImpl implements IPizzaDao {
+public class PizzaDaoTabl implements IPizzaDao {
 	/** pizzas : ArrayList<Pizza> */
 	ArrayList<Pizza> pizzas = new ArrayList<>();
 	/** instance : PizzaDaoImpl */
-	private static PizzaDaoImpl instance = null;
+	private static PizzaDaoTabl instance = null;
 	
 	/**
 	 * Constructeur privé : initialise la liste des pizzas en mémoire
 	 */
-	private PizzaDaoImpl() {
+	private PizzaDaoTabl() {
 		this.initPizzas();
 	}
 	
 	/** Méthode singleton
 	 * @return
 	 */
-	public static PizzaDaoImpl getInstance() {
+	public static PizzaDaoTabl getInstance() {
 		if (instance == null) {
-			instance = new PizzaDaoImpl();
+			instance = new PizzaDaoTabl();
 		}
 		return instance;
 	}

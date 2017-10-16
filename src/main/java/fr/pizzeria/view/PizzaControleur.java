@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.dao.PizzaDaoImpl;
+import fr.pizzeria.dao.impl.PizzaDaoTabl;
 import fr.pizzeria.model.Pizza;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +18,7 @@ public class PizzaControleur implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		IPizzaDao dao = PizzaDaoImpl.getInstance();
+		IPizzaDao dao = PizzaDaoTabl.getInstance();
 		
 		listPizzas.getItems().setAll(dao.findAllPizzas());
 	}
