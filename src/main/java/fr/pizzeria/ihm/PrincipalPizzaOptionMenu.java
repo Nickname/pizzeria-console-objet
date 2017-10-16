@@ -12,11 +12,11 @@ import com.github.lalyos.jfiglet.FigletFont;
 
 import fr.pizzeria.console.PizzeriaAdminConsoleApp;
 import fr.pizzeria.dao.*;
-import fr.pizzeria.dao.impl.PizzaDaoTabl;
+import fr.pizzeria.dao.impl.*;
 
 public class PrincipalPizzaOptionMenu extends OptionMenu {
 	/** four : IPizzaDao */
-	private static final IPizzaDao four = PizzaDaoTabl.getInstance();
+	private static IPizzaDao four = PizzaDaoJdbc.getInstance();
 	/** LOG : Logger */
 	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
@@ -28,7 +28,7 @@ public class PrincipalPizzaOptionMenu extends OptionMenu {
     /** instanceMenu : PrincipalPizzaOptionMenu */
     private static PrincipalPizzaOptionMenu instanceMenu = null;
 
-    private PrincipalPizzaOptionMenu() {    }
+    private PrincipalPizzaOptionMenu() {	}
     
     /** Méthode récupération instance : singleton
      * @return

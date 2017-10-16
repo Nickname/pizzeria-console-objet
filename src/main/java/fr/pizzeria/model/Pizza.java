@@ -63,7 +63,7 @@ public class Pizza {
 	}
 
 	public String toString() {
-		String pizzaStr = new String("");
+		StringBuilder pizzaStr = new StringBuilder();
 		Class<?> pizza = this.getClass();
 		
 		Field[] attributs = pizza.getDeclaredFields();
@@ -73,17 +73,16 @@ public class Pizza {
 				f.setAccessible(true);
 				if (f.getAnnotation(ToString.class) != null) {
 					if (f.getName() == "code") {
-						pizzaStr += f.get(this) + " ";
+						pizzaStr.append(f.get(this) + " ");
 					}
 					if (f.getName() == "nom") {
-						pizzaStr += "-> ";
-						pizzaStr += f.get(this);
+						pizzaStr.append("-> " + f.get(this));
 					}
 					if (f.getName() == "prix") {
-						pizzaStr += " (" + f.get(this) + " \u20ac)";
+						pizzaStr.append(" (" + f.get(this) + " \u20ac)");
 					}
 					if (f.getName() == "categorie") {
-						pizzaStr += " " + this.getCategorie();
+						pizzaStr.append(" " + this.getCategorie());
 					}
 				}
 			}
@@ -97,7 +96,7 @@ public class Pizza {
 			e.getMessage();
 			return "";
 		}
-		return pizzaStr;
+		return pizzaStr.toString();
 	}
 
 }

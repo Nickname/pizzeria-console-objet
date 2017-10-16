@@ -44,12 +44,12 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		
 		// Saisie du prix
 		LOG.info("Veuillez saisir le prix");
-		double prix = clavier.nextDouble();
+		float prix = clavier.nextFloat();
 		
-		LOG.info("Veuillez saisir la catégorie de la pizza :"
-				+ "1. Viande"
-				+ "2. Sans viande"
-				+ "3. Poisson");
+		LOG.info("Veuillez saisir la catégorie de la pizza :\n"
+				+ "1. Viande\n"
+				+ "2. Sans viande\n"
+				+ "3. Poisson\n");
 		String categorieInput = clavier.nextLine();
 		CategoriePizza categorie = null;
 		

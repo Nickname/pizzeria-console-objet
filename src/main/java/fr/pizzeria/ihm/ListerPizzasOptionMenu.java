@@ -29,8 +29,12 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 		
 		StringBuilder affich = new StringBuilder();
 		
-		for (Pizza pizza : four.findAllPizzas()) {
-			affich.append(pizza.toString() + "\n");
+		try {
+			for (Pizza pizza : four.findAllPizzas()) {
+				affich.append(pizza.toString() + "\n");
+			}
+		} catch (Exception e) {
+			LOG.info(e.getMessage());
 		}
 		
 		return affich.toString();
