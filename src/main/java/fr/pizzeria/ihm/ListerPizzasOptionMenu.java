@@ -11,7 +11,7 @@ import fr.pizzeria.model.Pizza;
 
 public class ListerPizzasOptionMenu extends OptionMenu {
 	/** four : IPizzaDao */
-	private IPizzaDao four;
+	private IPizzaDao four = null;
 	/** LOG : Logger */
 	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
