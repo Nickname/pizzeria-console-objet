@@ -43,12 +43,15 @@ public class PrincipalPizzaOptionMenu extends OptionMenu {
 	/** Méthode permettant d'initialiser la map contenant le menu
 	 * @param clavier
 	 */
-	public void initMenu() {
+	public void init() {
         try {
 			mapMenu.put("1  ->  Lister les pizzas", new ListerPizzasOptionMenu(four));
 			mapMenu.put("2  ->  Ajouter une nouvelle pizza", new AjouterPizzaOptionMenu(four));
 			mapMenu.put("3  ->  Mettre à jour une pizza", new ModifierPizzaOptionMenu(four));
 			mapMenu.put("4  ->  Supprimer une pizza", new SupprimerPizzaOptionMenu(four));
+			if (four instanceof PizzaDaoJdbc) {
+				mapMenu.put("5  ->  Réinitialiser les pizzas", new ResetPizzaOptionMenu(four));
+			}
 			mapMenu.put("99 -> Sortir", new SortirPizzaOptionMenu());
 		} catch (Exception e) {
 			LOG.info(e.getMessage());
@@ -58,7 +61,7 @@ public class PrincipalPizzaOptionMenu extends OptionMenu {
 	/** Méthode pour afficher le menu
 	 * @return
 	 */
-	public String affichMenu() {
+	public String affich() {
 		StringBuilder strMenu = new StringBuilder();
 		
 		strMenu.append(pizzeriaAscii);

@@ -132,7 +132,7 @@ public class PizzaDaoJdbc implements IPizzaDao {
 		return insertPizza == 1;
 	}
 	
-	public int saveOldPizzas() {
+	public int initOldPizzas() {
 		PizzaDaoTabl oldFour = PizzaDaoTabl.getInstance();
 		int insertPizza = 0;
 		Statement statement = null;
@@ -144,6 +144,7 @@ public class PizzaDaoJdbc implements IPizzaDao {
 		
 		for (Pizza pizza : oldFour.findAllPizzas()) {
 			try {
+				int deleteAll = statement.executeUpdate("DELETE * FROM PIZZA");
 				insertPizza = statement.executeUpdate("INSERT INTO PIZZA(CODE, NOM, PRIX, CATEGORIE) "
 														+ "VALUES ('" + pizza.getCode() + "', '" 
 														+ pizza.getNom() + "', " 

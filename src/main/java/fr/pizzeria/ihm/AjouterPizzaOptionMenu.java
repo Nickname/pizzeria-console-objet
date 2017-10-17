@@ -50,16 +50,13 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 				+ "1. Viande\n"
 				+ "2. Sans viande\n"
 				+ "3. Poisson\n");
-		String categorieInput = clavier.nextLine();
 		CategoriePizza categorie = null;
+		String categorieInput = clavier.nextLine();
 		
 		switch(categorieInput) {
 			case "1": categorie = CategoriePizza.VIANDE;
-						break;
 			case "2": categorie = CategoriePizza.SANS_VIANDE;
-						break;
 			case "3": categorie = CategoriePizza.POISSON;
-						break;
 			default: categorie = null;
 		}
 		

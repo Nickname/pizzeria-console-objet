@@ -27,11 +27,11 @@ public class PizzeriaAdminConsoleApp {
 	 */
 	public void execute() {
 		PrincipalPizzaOptionMenu menuPrincipal = PrincipalPizzaOptionMenu.getInstance();
-		menuPrincipal.initMenu();
+		menuPrincipal.init();
 		
 		while (!out) {
 			try {
-				LOG.info(menuPrincipal.affichMenu());
+				LOG.info(menuPrincipal.affich());
 				LOG.info(menuPrincipal.execute(clavier));
 			} catch (Exception e) {
 				LOG.info(e.getMessage());
