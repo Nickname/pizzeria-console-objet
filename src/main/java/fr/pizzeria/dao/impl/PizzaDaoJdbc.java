@@ -144,7 +144,7 @@ public class PizzaDaoJdbc implements IPizzaDao {
 		
 		for (Pizza pizza : oldFour.findAllPizzas()) {
 			try {
-				int deleteAll = statement.executeUpdate("DELETE * FROM PIZZA");
+				statement.executeUpdate("DELETE * FROM PIZZA");
 				insertPizza = statement.executeUpdate("INSERT INTO PIZZA(CODE, NOM, PRIX, CATEGORIE) "
 														+ "VALUES ('" + pizza.getCode() + "', '" 
 														+ pizza.getNom() + "', " 

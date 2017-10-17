@@ -16,7 +16,7 @@ import fr.pizzeria.dao.impl.*;
 
 public class PrincipalPizzaOptionMenu extends OptionMenu {
 	/** four : IPizzaDao */
-	private static IPizzaDao four = PizzaDaoJdbc.getInstance();
+	private static IPizzaDao four = PizzaDaoJpa.getInstance();
 	/** LOG : Logger */
 	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	

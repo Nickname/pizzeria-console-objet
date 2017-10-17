@@ -2,17 +2,35 @@ package fr.pizzeria.model;
 
 import java.lang.reflect.*;
 
+import javax.persistence.*;
+
+@Entity
 public class Pizza {
+	
+	@Id
+	@Column(name="ID")
 	private int id;
+	
 	@ToString
+	@Column(name="CODE")
 	private String code;
+	
 	@ToString
+	@Column(name="NOM")
 	private String nom;
+	
 	@ToString
+	@Column(name="PRIX")
 	private double prix;
+	
 	@ToString
+	@Enumerated(EnumType.STRING)
+	@Column(name="CATEGORIE")
 	private CategoriePizza categorie;
+	
 	static int currentId = 0;
+	
+	public Pizza() {	}
 	
 	public Pizza(String code, String nom, double prix, CategoriePizza categorie) {
 		this.id = currentId++;
