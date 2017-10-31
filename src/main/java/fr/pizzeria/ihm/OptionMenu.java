@@ -1,13 +1,16 @@
 package fr.pizzeria.ihm;
 
-import java.util.Scanner;
-
 abstract class OptionMenu {
+	
+	/** Renvoie le libellé du menu
+	 * @return
+	 */
+	public abstract String getLibelle();
 	
 	/** Méthode abstraite des classes de Menus
 	 * @param clavier
 	 * @return
 	 * @throws Exception
 	 */
-	protected abstract String execute(Scanner clavier) throws Exception;
+	protected abstract boolean execute() throws Exception;
 }

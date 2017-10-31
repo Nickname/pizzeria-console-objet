@@ -1,29 +1,36 @@
 package fr.pizzeria.ihm;
 
-import java.util.Scanner;
-
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-import fr.pizzeria.console.PizzeriaAdminConsoleApp;
 import fr.pizzeria.dao.IPizzaDao;
 
+@Controller
 public class ResetPizzaOptionMenu extends OptionMenu {
-	/** four : IPizzaDao */
-	private IPizzaDao four = null;
-	/** LOG : Logger */
-	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
-	public ResetPizzaOptionMenu(IPizzaDao four) {
-		this.four = four;
+	/** four : IPizzaDao */
+	@Autowired private IPizzaDao four;
+	
+	/** logger : Logger */
+	@Autowired private Logger logger;
+	
+	private static final String LIBELLE = "Réinitialiser les pizzas";
+	
+	/** Getter for LIBELLE
+	 * @return the libelle
+	 */
+	public String getLibelle() {
+		return LIBELLE;
 	}
 
 	@Override
-	protected String execute(Scanner clavier) throws Exception {
-		LOG.info("Réinitialisation des pizzas...");
+	protected boolean execute() throws Exception {
+		logger.info("Réinitialisation des pizzas...");
 		four.resetPizzas();
+		logger.info("OK");
 		
-		return "OK";
+		return true;
 	}
 
 }

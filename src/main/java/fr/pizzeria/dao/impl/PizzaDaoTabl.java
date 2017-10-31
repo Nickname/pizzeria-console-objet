@@ -119,7 +119,7 @@ public class PizzaDaoTabl implements IPizzaDao {
 	/* Ne sert à rien ici
 	 * @see fr.pizzeria.dao.IPizzaDao#closeConnection()
 	 */
-	public void closeConnection() {
+	public void close() {
 		
 	}
 }

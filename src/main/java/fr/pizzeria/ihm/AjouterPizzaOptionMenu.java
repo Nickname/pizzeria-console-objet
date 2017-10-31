@@ -3,50 +3,58 @@ package fr.pizzeria.ihm;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-import fr.pizzeria.console.PizzeriaAdminConsoleApp;
 import fr.pizzeria.dao.*;
 import fr.pizzeria.exception.BadInputException;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
+@Controller
 public class AjouterPizzaOptionMenu extends OptionMenu {
-	/** four : IPizzaDao */
-	private IPizzaDao four = null;
-	/** LOG : Logger */
-	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
-	/**
-	 * @param four
+	/** four : IPizzaDao */
+	@Autowired private IPizzaDao four = null;
+	
+	/** logger : Logger */
+	@Autowired private Logger logger;
+	
+	/** clavier : Scanner */
+	@Autowired private Scanner clavier;
+	
+	private static final String LIBELLE = "Ajouter une nouvelle pizza";
+	
+	/** Getter for LIBELLE
+	 * @return the libelle
 	 */
-	public AjouterPizzaOptionMenu(IPizzaDao four) {
-		this.four = four;
+	public String getLibelle() {
+		return LIBELLE;
 	}
-
+	
 	/* Exécute le menu pour ajouter une pizza
 	 * @see fr.pizzeria.ihm.OptionMenu#execute(java.util.Scanner)
 	 */
-	public String execute(Scanner clavier) throws BadInputException, SavePizzaException {
-		LOG.info("Ajout d’une nouvelle pizza");
+	public boolean execute() throws BadInputException, SavePizzaException {
+		logger.info("Ajout d’une nouvelle pizza");
 		
 		// Saisie du code
-		LOG.info("Veuillez saisir le code :");
+		logger.info("Veuillez saisir le code :");
 		String code = clavier.next();
 		if (code.length() > 3 || code.length() == 0) {
 			throw new BadInputException("Le code doit avoir 3 lettres !");
 		}
 		
 		// Saisie du nom
-		LOG.info("Veuillez saisir le nom (sans espace) :");
+		logger.info("Veuillez saisir le nom (sans espace) :");
 		String nom = clavier.next();
 		
 		// Saisie du prix
-		LOG.info("Veuillez saisir le prix");
+		logger.info("Veuillez saisir le prix");
 		float prix = clavier.nextFloat();
 		
-		LOG.info("Veuillez saisir la catégorie de la pizza :\n"
+		logger.info("Veuillez saisir la catégorie de la pizza :\n"
 				+ "1. Viande\n"
 				+ "2. Sans viande\n"
 				+ "3. Poisson\n");
@@ -58,7 +66,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 				case "1": categorie = CategoriePizza.VIANDE;
 				case "2": categorie = CategoriePizza.SANS_VIANDE;
 				case "3": categorie = CategoriePizza.POISSON;
-				default : LOG.info("Veuillez saisir une catégorie!");
+				default : logger.info("Veuillez saisir une catégorie!");
 			}
 		}
 		
@@ -68,7 +76,8 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		if (!ok) {
 			throw new SavePizzaException("Erreur lors de la sauvegarde");
 		} else {
-			return "Pizza sauvegardé !";
+			logger.info("Pizza sauvegardé !");
+			return true;
 		}
 	}
 	

@@ -3,39 +3,52 @@ package fr.pizzeria.ihm;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-import fr.pizzeria.console.PizzeriaAdminConsoleApp;
 import fr.pizzeria.dao.*;
 import fr.pizzeria.exception.BadInputException;
 import fr.pizzeria.exception.DeletePizzaException;
 
+@Controller
 public class SupprimerPizzaOptionMenu extends OptionMenu {
-	/** four : IPizzaDao */
-	private IPizzaDao four;
-	/** LOG : Logger */
-	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
-	/**
-	 * @param four
+	/** four : IPizzaDao */
+	@Autowired private IPizzaDao four;
+	
+	/** logger : Logger */
+	@Autowired private Logger logger;
+	
+	/** clavier : Scanner */
+	@Autowired private Scanner clavier;
+	
+	/** listerPizza : ListerPizzasOptionMenu */
+	@Autowired private ListerPizzasOptionMenu listerPizza;
+	
+	/** LIBELLE : String */
+	private static final String LIBELLE = "Supprimer une pizza";
+	
+	/** Getter for LIBELLE
+	 * @return the libelle
 	 */
-	public SupprimerPizzaOptionMenu(IPizzaDao four) {
-		this.four = four;
+	public String getLibelle() {
+		return LIBELLE;
 	}
 	
 	/* Exécution du menu de suppression d'une pizza
 	 * @see fr.pizzeria.ihm.OptionMenu#execute(java.util.Scanner)
 	 */
-	public String execute(Scanner clavier) throws BadInputException, DeletePizzaException {
-		LOG.info("Suppression d’une pizza\n");
-		new ListerPizzasOptionMenu(four).execute(clavier);
+	public boolean execute() throws BadInputException, DeletePizzaException {
+		logger.info("Suppression d’une pizza\n");
+		listerPizza.execute();
 		
-		LOG.info("Veuillez saisir le code de la pizza à supprimer :\n");
-		LOG.info("(99 pour abandonner)\n");
+		logger.info("Veuillez saisir le code de la pizza à supprimer :\n");
+		logger.info("(99 pour abandonner)\n");
 		String code = clavier.next();
 		
 		if (code == "99") {
-			return "Abandon...";
+			logger.info("Abandon...");
+			return true;
 		}
 		
 		if (code.length() > 3 || code.length() == 0) {
@@ -46,7 +59,8 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 		if (!ok) {
 			throw new DeletePizzaException("Erreur lors de la supression");
 		} else {
-			return "Pizza supprimé !";
+			logger.info("Pizza supprimé !");
+			return true;
 		}
 	}
 	

@@ -39,7 +39,7 @@ public class PizzaDaoJdbc implements IPizzaDao {
 		return instance;
 	}
 	
-	public void closeConnection() {
+	public void close() {
 		try {
 			connection.close();
 		} catch (SQLException e) {

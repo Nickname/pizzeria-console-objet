@@ -1,31 +1,35 @@
 package fr.pizzeria.ihm;
 
-import java.util.Scanner;
-
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-import fr.pizzeria.console.PizzeriaAdminConsoleApp;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.model.Pizza;
 
+@Controller
 public class ListerPizzasOptionMenu extends OptionMenu {
-	/** four : IPizzaDao */
-	private IPizzaDao four = null;
-	/** LOG : Logger */
-	private static final Logger LOG = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
-	/**
-	 * @param four
+	/** four : IPizzaDao */
+	@Autowired private IPizzaDao four = null;
+	
+	/** logger : Logger */
+	@Autowired private Logger logger;
+	
+	private static final String LIBELLE = "Lister les pizzas";
+	
+	/** Getter for LIBELLE
+	 * @return the libelle
 	 */
-	public ListerPizzasOptionMenu(IPizzaDao four) {
-		this.four = four;
+	public String getLibelle() {
+		return LIBELLE;
 	}
+	
 	/* Méthode qui renvoie la liste des pizzas sous forme de String
 	 * @see fr.pizzeria.ihm.OptionMenu#execute(java.util.Scanner)
 	 */
-	public String execute(Scanner clavier) {
-		LOG.info("Liste des pizzas");
+	public boolean execute() {
+		logger.info("Liste des pizzas");
 		
 		StringBuilder affich = new StringBuilder();
 		
@@ -34,9 +38,10 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 				affich.append(pizza.toString() + "\n");
 			}
 		} catch (Exception e) {
-			LOG.info(e.getMessage());
+			logger.info(e.getMessage());
 		}
+		logger.info(affich.toString());
 		
-		return affich.toString();
+		return true;
 	}
 }

@@ -3,29 +3,30 @@ package fr.pizzeria.dao.impl;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.*;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
+import org.springframework.stereotype.Repository;
 
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.model.Pizza;
 
+@Repository
 public class PizzaDaoJpa implements IPizzaDao {
 	
-	private static PizzaDaoJpa instance = null;
 	private EntityManagerFactory entityManagerFactory = null;
 	
-	private PizzaDaoJpa() {
-		if (entityManagerFactory == null) {
-			entityManagerFactory = Persistence.createEntityManagerFactory("pizzeria");
-		}
+	@PostConstruct
+	public void init() {
+		entityManagerFactory = Persistence.createEntityManagerFactory("pizzeria");
 	}
 	
-	public static PizzaDaoJpa getInstance() {
-		if (instance == null) {
-			instance = new PizzaDaoJpa();
-		}
-		return instance;
-	}
-
 	public List<Pizza> findAllPizzas() throws Exception {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		
@@ -117,7 +118,8 @@ public class PizzaDaoJpa implements IPizzaDao {
 		em.close();
 	}
 	
-	public void closeConnection() {
+	@PreDestroy
+	public void close() {
 		entityManagerFactory.close();
 	}
 	
