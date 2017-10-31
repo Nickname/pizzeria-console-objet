@@ -1,11 +1,8 @@
 package fr.pizzeria.dao;
 
-import static org.junit.Assert.*;
-
 import java.util.Optional;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 import fr.pizzeria.dao.impl.PizzaDaoTabl;
 import fr.pizzeria.model.Pizza;
