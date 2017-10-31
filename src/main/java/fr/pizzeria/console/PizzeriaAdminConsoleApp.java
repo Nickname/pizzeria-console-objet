@@ -1,6 +1,7 @@
 package fr.pizzeria.console;
 
 import fr.pizzeria.ihm.*;
+import fr.pizzeria.dao.impl.*;
 
 import java.util.Scanner;
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ public class PizzeriaAdminConsoleApp {
 	 */
 	public void execute() {
 		PrincipalPizzaOptionMenu menuPrincipal = PrincipalPizzaOptionMenu.getInstance();
+		menuPrincipal.injectDao(PizzaDaoJpa.getInstance());
 		menuPrincipal.init();
 		
 		while (!out) {
@@ -38,6 +40,7 @@ public class PizzeriaAdminConsoleApp {
 			}
 		}
 		
+		menuPrincipal.getDaoInjected().closeConnection();
 		clavier.close();
 	}
 	

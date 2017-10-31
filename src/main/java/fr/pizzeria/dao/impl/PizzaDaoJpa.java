@@ -2,7 +2,6 @@ package fr.pizzeria.dao.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
@@ -30,32 +29,95 @@ public class PizzaDaoJpa implements IPizzaDao {
 	public List<Pizza> findAllPizzas() throws Exception {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		
-		TypedQuery<Pizza> pizzas = em.createQuery("from Pizza", Pizza.class);
+		TypedQuery<Pizza> query = em.createQuery("from Pizza", Pizza.class);
+		List<Pizza> pizzas = query.getResultList();
 		
-		return pizzas.getResultList().stream().collect(Collectors.toList());
+		em.close();
+		
+		return pizzas;
 	}
 
 	public Optional<Pizza> findPizza(String codePizza) {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em = entityManagerFactory.createEntityManager();
+		
+		TypedQuery<Pizza> query = em.createQuery("from Pizza p where p.code=:code", Pizza.class);
+		query.setParameter("code", codePizza);
+		List<Pizza> onePizza = query.getResultList();
+		
+		em.close();
+		
+		if (onePizza.isEmpty()) {
+			return Optional.empty();
+		} else {
+			return Optional.ofNullable(onePizza.get(0));
+		}
 	}
 
 	public boolean saveNewPizza(Pizza pizza) {
-		// TODO Auto-generated method stub
-		return false;
+		EntityManager em = entityManagerFactory.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		
+		et.begin();
+		em.persist(pizza);
+		et.commit();
+		em.close();
+		
+		return true;
 	}
 
 	public boolean updatePizza(String codePizza, Pizza pizza) {
-		// TODO Auto-generated method stub
-		return false;
+		EntityManager em = entityManagerFactory.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		
+		Optional<Pizza> updatePizza = findPizza(codePizza);
+		
+		et.begin();
+		if (updatePizza.isPresent()) {
+			em.remove(updatePizza.get());
+			em.persist(pizza);
+		} else {
+			return false;
+		}
+		et.commit();
+		em.close();
+		
+		return true;
 	}
 
 	public boolean deletePizza(String codePizza) {
-		// TODO Auto-generated method stub
-		return false;
+		EntityManager em = entityManagerFactory.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		
+		Optional<Pizza> updatePizza = findPizza(codePizza);
+		
+		et.begin();
+		if (updatePizza.isPresent()) {
+			em.remove(updatePizza.get());
+		} else {
+			return false;
+		}
+		et.commit();
+		em.close();
+		
+		return true;
 	}
 	
-	public void closeEntityManagerFactory() {
+	public void resetPizzas() {
+		PizzaDaoTabl four = PizzaDaoTabl.getInstance();
+		EntityManager em = entityManagerFactory.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		
+		et.begin();
+		Query query = em.createNativeQuery("DELETE FROM pizza");
+		query.executeUpdate();
+		
+		four.findAllPizzas().forEach(p -> em.persist(p));
+		
+		et.commit();
+		em.close();
+	}
+	
+	public void closeConnection() {
 		entityManagerFactory.close();
 	}
 	

@@ -5,6 +5,7 @@ import java.lang.reflect.*;
 import javax.persistence.*;
 
 @Entity
+@Table(name="pizza")
 public class Pizza {
 	
 	@Id

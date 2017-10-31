@@ -24,7 +24,10 @@ public class PizzaDaoJdbc implements IPizzaDao {
 	private PizzaDaoJdbc() {
 		try {
 			Class.forName("org.mariadb.mysql.Driver");
+			connection = DriverManager.getConnection(URL_BDD, "root", "");
 		} catch (ClassNotFoundException e) {
+			e.getMessage();
+		} catch (SQLException e) {
 			e.getMessage();
 		}
 	}
@@ -32,22 +35,16 @@ public class PizzaDaoJdbc implements IPizzaDao {
 	public static PizzaDaoJdbc getInstance() {
 		if (instance == null) {
 			instance = new PizzaDaoJdbc();
-			try {
-				connection = DriverManager.getConnection(URL_BDD, "root", "");
-			} catch (SQLException e) {
-				e.getErrorCode();
-			}
 		}
 		return instance;
 	}
 	
-	public static boolean closeConnection() {
+	public void closeConnection() {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			return false;
+			e.getMessage();
 		}
-		return true;
 	}
 
 	public List<Pizza> findAllPizzas() throws SQLException {
@@ -131,38 +128,6 @@ public class PizzaDaoJdbc implements IPizzaDao {
 		
 		return insertPizza == 1;
 	}
-	
-	public int initOldPizzas() {
-		PizzaDaoTabl oldFour = PizzaDaoTabl.getInstance();
-		int insertPizza = 0;
-		Statement statement = null;
-		try {
-			statement = connection.createStatement();
-		} catch (SQLException e1) {
-			e1.getMessage();
-		}
-		
-		for (Pizza pizza : oldFour.findAllPizzas()) {
-			try {
-				statement.executeUpdate("DELETE * FROM PIZZA");
-				insertPizza = statement.executeUpdate("INSERT INTO PIZZA(CODE, NOM, PRIX, CATEGORIE) "
-														+ "VALUES ('" + pizza.getCode() + "', '" 
-														+ pizza.getNom() + "', " 
-														+ pizza.getPrix() + ", '" 
-														+ pizza.getCategorie() + "')");
-			} catch (SQLException e) {
-				return -1;
-			} finally {
-				try {
-					statement.close();
-				} catch (SQLException e) {
-					System.out.println(e.getMessage());
-				}
-			}
-		}
-		
-		return insertPizza;
-	}
 
 	public boolean updatePizza(String codePizza, Pizza pizza) {
 		int updatePizza;
@@ -202,6 +167,35 @@ public class PizzaDaoJdbc implements IPizzaDao {
 			return false;
 		}
 		return deletePizza == 1;
+	}
+	
+	public void resetPizzas() {
+		PizzaDaoTabl oldFour = PizzaDaoTabl.getInstance();
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			statement.executeUpdate("DELETE * FROM PIZZA");
+		} catch (SQLException e1) {
+			e1.getMessage();
+		}
+		
+		for (Pizza pizza : oldFour.findAllPizzas()) {
+			try {
+				statement.executeUpdate("INSERT INTO PIZZA(CODE, NOM, PRIX, CATEGORIE) "
+												+ "VALUES ('" + pizza.getCode() + "', '" 
+												+ pizza.getNom() + "', " 
+												+ pizza.getPrix() + ", '" 
+												+ pizza.getCategorie() + "')");
+			} catch (SQLException e) {
+				throw new RuntimeException("Erreur SQL");
+			} finally {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+			}
+		}
 	}
 
 }

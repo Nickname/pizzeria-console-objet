@@ -106,4 +106,20 @@ public class PizzaDaoTabl implements IPizzaDao {
 			return false;
 		}
 	}
+	
+	/* Réinitialise toutes les pizzas
+	 * @see fr.pizzeria.dao.IPizzaDao#resetPizzas()
+	 */
+	public void resetPizzas() {
+		this.pizzas = null;
+		this.initPizzas();
+	}
+	
+	
+	/* Ne sert à rien ici
+	 * @see fr.pizzeria.dao.IPizzaDao#closeConnection()
+	 */
+	public void closeConnection() {
+		
+	}
 }
